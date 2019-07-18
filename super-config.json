@@ -1,0 +1,13 @@
+[
+  {
+    "s_name": "qunfenxiang",
+    "s_start_url": "http://www.qunfenxiang.net/group/",
+    "s_selector_next_page": "a.pageNext::href",
+    "s_items": {
+      "selector": "div.boldBorder",
+      "selector_url": "a::href",
+      "selector_last_update": "div.f12::stripped-0",
+      "selector_hot": "em.cf74::text"
+    }
+  }
+]
