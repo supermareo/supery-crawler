@@ -1,6 +1,7 @@
 [
   {
     "s_name": "qunfenxiang",
+    "s_base_url": "http://www.qunfenxiang.net",
     "s_start_url": "http://www.qunfenxiang.net/group/",
     "s_selector_next_page": "a.pageNext::href",
     "s_items": {
@@ -8,6 +9,50 @@
       "selector_url": "a::href",
       "selector_last_update": "div.f12::stripped-0",
       "selector_hot": "em.cf74::text"
+    }
+  },
+  {
+    "s_name": "weixinqun",
+    "s_base_url": "https://weixinqun.com",
+    "s_start_url": "https://weixinqun.com/group",
+    "s_selector_next_page": "a.pageNext::href",
+    "s_items": {
+      "selector": "div.border5",
+      "selector_url": "a::href",
+      "selector_last_update": "p.wxNum.ellips::stripped-[0,1,None]"
+    }
+  },
+  {
+    "s_name": "qianwanqun",
+    "s_base_url": "http://www.qianwanqun.com/weixinqun/",
+    "s_start_url": "http://www.qianwanqun.com/weixinqun/",
+    "s_regex_next_page": "<a href='(list____\\d+.html)'>下一页</a>",
+    "s_items": {
+      "selector": "div.p_list_wxq.p_div > ul > a",
+      "selector_url": "::href",
+      "selector_last_update": "div.l3::stripped-0"
+    }
+  },
+  {
+    "s_name": "weixin28_qun",
+    "s_base_url": "http://www.weixin28.com",
+    "s_start_url": "http://www.weixin28.com/qun/",
+    "s_selector_next_page": "div.page-num>a:nth-last-child(2)::href",
+    "s_items": {
+      "selector": "div.hover-border",
+      "selector_url": "a::href",
+      "selector_last_update": "span.fr::text"
+    }
+  },
+  {
+    "s_name": "weixin28_hong",
+    "s_base_url": "http://www.weixin28.com",
+    "s_start_url": "http://www.weixin28.com/hong/",
+    "s_selector_next_page": "div.page-num>a:nth-last-child(2)::href",
+    "s_items": {
+      "selector": "div.hover-border",
+      "selector_url": "a::href",
+      "selector_last_update": "span.fr::text"
     }
   }
 ]

@@ -3,7 +3,7 @@ import json
 
 
 def load_config(path='super-config.json', name=None):
-    with open(path, 'r') as f:
+    with open(path, 'r', encoding='utf-8') as f:
         json_str = ''.join(list(map(lambda x: x.replace('\n', ''), f.readlines())))
     json_obj = json.loads(json_str)
     if name is None:
