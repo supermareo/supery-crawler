@@ -9,6 +9,17 @@
       "selector_url": "a::href",
       "selector_last_update": "div.f12::stripped-0",
       "selector_hot": "em.cf74::text"
+    },
+    "s_item_detail": {
+      "selector_title": "title::text",
+      "selector_publish_time": "div.other-info > ul > li:nth-child(3)::stripped-1",
+      "selector_industry": "div.other-info > ul > li:nth-child(1)::stripped-1",
+      "selector_area": "div.other-info > ul > li:nth-child(2)::stripped-1",
+      "selector_tags": "div.other-info > ul > li:nth-child(4)::stripped-1",
+      "selector_brief": "div.page_con>div.pt20>p.pt20::text",
+      "selector_group_qr": "div.code_pic>span.shiftcode::nth-child(1)>img::src",
+      "selector_group_master_account": "div.code_info>div.green_bg>p:nth-child(1)>span.bold::text",
+      "selector_group_master_qr": "div.code_pic>span.shiftcode::nth-child(2)>img::src"
     }
   },
   {

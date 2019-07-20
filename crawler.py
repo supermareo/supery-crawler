@@ -1,12 +1,13 @@
 # coding=utf-8
 
+import re
+
 import requests
 from bs4 import BeautifulSoup
-import re
 
 import config_util
 
-config = config_util.load_config(name='weixin28_hong')
+config = config_util.load_config(name='qunfenxiang')
 
 url_array = []
 
@@ -74,6 +75,33 @@ def craw_list(url):
 
 def craw_detail(item_data):
     print(f'start crawl detail {item_data}')
+    url = config['s_base_url'] + item_data['selector_url']
+    html = requests.get(url).text
+    soup = BeautifulSoup(html, 'html.parser')
+    item_detail_config = config['s_item_detail']
+    detail = {}
+    for k, v in item_detail_config.items():
+        css, attr = config_util.parse_selector(v)
+        if css == '':
+            one = soup
+        else:
+            one = soup.select_one(css)
+        if attr == 'text':
+            detail[k] = one.text.strip()
+        elif attr.startswith('stripped'):
+            rules = attr.split('-')[1]
+            strings = list(one.stripped_strings)
+            if rules.startswith('[') and rules.endswith(']'):
+                rule_split = rules[1:-1].split(',')
+                str_list = []
+                for i in rule_split[0:-1]:
+                    str_list.append(strings[int(i)])
+                detail[k] = ''.join(str_list) if rule_split[-1] == 'None' else rule_split[-1].join(str_list)
+            else:
+                detail[k] = strings[int(rules)]
+        else:
+            detail[k] = one.attrs[attr]
+    print(detail)
 
 
 if __name__ == '__main__':
