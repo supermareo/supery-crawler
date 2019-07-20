@@ -1,6 +1,5 @@
-[
-  {
-    "name": "qunfenxiang",
+{
+  "qunfenxiang": {
     "start_url": "http://www.qunfenxiang.net/group/",
     "next_page": {
       "selector_type": "css",
@@ -98,6 +97,10 @@
           "val": "stripped-1"
         }
       ]
+    },
+    "storage": {
+      "data_path": "./data/data.csv",
+      "img_path": "./data/imgs/"
     }
   }
-]
+}
