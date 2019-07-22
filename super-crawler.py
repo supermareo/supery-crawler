@@ -1,16 +1,25 @@
 import requests
 from bs4 import BeautifulSoup
 
-from util import config_util
+from util import config_util, history_util
+from util import time_util
 from util.image_util import download_img, next_img_name
 
-config = config_util.load_config(name='qunfenxiang')
+name = 'qunfenxiang'
+config = config_util.load_config(name=name)
+history = history_util.load(name=name)
 
-url_array = []
+url_array = [config['start_url']]
 
 
 def start():
-    url_array.append(config['start_url'])
+    global config, history
+    if config is None:
+        print(f'no config for {name}, program exit')
+        return
+    if history is None:
+        history = {}
+
     while len(url_array) > 0:
         url = url_array.pop(0)
         craw_list(url)
@@ -27,19 +36,32 @@ def craw_list(url):
     page_items = process_page_items(soup)
     # 提取详情
     for page_item in page_items:
-        detail = craw_detail(page_item)
+        last_update = time_util.parse_time_str(page_item['last_update'])
+        id = page_item['url'].split("/")[-1].split(".")[0]
+        if not id in history:
+            history[id] = {}
+            detail = craw_detail(id, page_item)
+        elif history[id]['last_crawler_time'] > last_update:
+            detail = craw_detail(id, page_item)
+        else:
+            detail = history[id]['data']
+        # 更新时间
+        history[id]['last_crawler_time'] = time_util.now_time_stamp()
+        # 更新数据
+        history[id]['data'] = detail
         restore_data(detail)
+        history_util.update(name, history)
 
 
 # 爬取详情页
-def craw_detail(page_item):
+def craw_detail(id, page_item):
     url = page_item['url']
     print(f'star crawl detail {url}')
     html = requests.get(url).text
     soup = BeautifulSoup(html, 'lxml')
     # print(soup)
     attrs_cfg = config['detail']['attrs']
-    item = {'id': url}
+    item = {'id': id}
     for attr_cfg in attrs_cfg:
         item[attr_cfg['name']] = extract(soup, attr_cfg)
     return item
@@ -138,7 +160,7 @@ def restore_data(data):
 
     # 生成要存入csv的字符串
     # 编号,群标题,发布时间,行业,地区,标签,群简介,群二维码图片,群主微信号,群主二维码
-    line = f'{real_data["id"].split("/")[-1].split(".")[0]},{real_data["title"]},{real_data["time"]},' \
+    line = f'{real_data["id"]},{real_data["title"]},{real_data["time"]},' \
         f'{real_data["industry"]},{real_data["location"]},{real_data["tag"]},{real_data["brief"]},' \
         f'{qr_group_name},{real_data["account_master"]},{qr_master_name}\n'
 
