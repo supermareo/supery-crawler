@@ -4,6 +4,17 @@ import json
 import os
 
 
+def remove_file(path):
+    if os.path.exists(path):
+        os.remove(path)
+
+
+def create_dirs_if_not_exists(path):
+    if os.path.exists(path):
+        return
+    os.makedirs(path)
+
+
 # 按行读取
 def read_lines(path):
     if os.path.isfile(path):
@@ -28,18 +39,14 @@ def read_json_str(path):
 
 # 追加一行
 def append_line(path, line, end='\n'):
-    dir_path = ''.join(path.split('/')[:-1])
-    if not os.path.exists(dir_path):
-        os.mkdir(dir_path)
+    create_dirs_if_not_exists('/'.join(path.split('/')[:-1]))
     with open(path, 'a', encoding='utf-8') as f:
         f.write(line + end)
 
 
 # 追加多行
 def append_lines(path, lines, end='\n'):
-    dir_path = ''.join(path.split('/')[:-1])
-    if not os.path.exists(dir_path):
-        os.mkdir(dir_path)
+    create_dirs_if_not_exists('/'.join(path.split('/')[:-1]))
     with open(path, 'a', encoding='utf-8') as f:
         for line in lines:
             f.write(line + end)
@@ -47,17 +54,13 @@ def append_lines(path, lines, end='\n'):
 
 # bytes写文件
 def write_bytes(path, content):
-    dir_path = ''.join(path.split('/')[:-1])
-    if not os.path.exists(dir_path):
-        os.mkdir(dir_path)
+    create_dirs_if_not_exists('/'.join(path.split('/')[:-1]))
     with open(path, 'wb') as f:
         f.write(content)
 
 
 # 覆盖写文件
 def write_line(path, content):
-    dir_path = ''.join(path.split('/')[:-1])
-    if not os.path.exists(dir_path):
-        os.mkdir(dir_path)
+    create_dirs_if_not_exists('/'.join(path.split('/')[:-1]))
     with open(path, 'w', encoding='utf-8') as f:
         f.write(content)

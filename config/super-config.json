@@ -10,7 +10,19 @@
     "items": {
       "selector_type": "css",
       "selector_val": "div.boldBorder",
+      "list": true,
       "attrs": [
+        {
+          "name": "id",
+          "selector_type": "css",
+          "selector_val": "a",
+          "val": "href",
+          "val_process": {
+            "method": "regex",
+            "regex": "/group/(\\d+).html",
+            "index": 0
+          }
+        },
         {
           "name": "url",
           "selector_type": "css",
@@ -99,8 +111,123 @@
       ]
     },
     "storage": {
-      "data_path": "./data/data.csv",
-      "img_path": "./data/imgs/"
+      "base_dir": "./data/qunfenxiang",
+      "data_name": "data.csv",
+      "img_dir": "imgs"
+    }
+  },
+  "weixinqun": {
+    "start_url": "https://weixinqun.com/group",
+    "next_page": {
+      "selector_type": "css",
+      "selector_val": "a.pageNext",
+      "val": "href",
+      "val_prefix": "https://weixinqun.com"
+    },
+    "items": {
+      "selector_type": "css",
+      "selector_val": "div.border5",
+      "list": true,
+      "attrs": [
+        {
+          "name": "id",
+          "selector_type": "css",
+          "selector_val": "a",
+          "val": "href",
+          "val_process": {
+            "method": "regex",
+            "regex": "/group\\?id=(\\d+)",
+            "index": 0
+          }
+        },
+        {
+          "name": "url",
+          "selector_type": "css",
+          "selector_val": "a",
+          "val": "href",
+          "val_prefix": "https://weixinqun.com"
+        },
+        {
+          "name": "title",
+          "selector_type": "css",
+          "selector_val": "p.goods_name>a",
+          "val": "title"
+        },
+        {
+          "name": "last_update",
+          "selector_type": "css",
+          "selector_val": "p.wxNum",
+          "val": "stripped-[0,1,None]"
+        }
+      ]
+    },
+    "detail": {
+      "attrs": [
+        {
+          "name": "title",
+          "selector_type": "css",
+          "selector_val": "span.des_info_text>b",
+          "val": "text"
+        },
+        {
+          "name": "time",
+          "selector_type": "css",
+          "selector_val": "ul.other-info>li:nth-child(3)",
+          "val": "text",
+          "val_process": {
+            "method": "split",
+            "split": "：",
+            "index": 1
+          }
+        },
+        {
+          "name": "industry",
+          "selector_type": "css",
+          "selector_val": "ul.other-info>li:nth-child(1)",
+          "val": "stripped-1"
+        },
+        {
+          "name": "location",
+          "selector_type": "css",
+          "selector_val": "ul.other-info>li:nth-child(2)",
+          "val": "stripped-1"
+        },
+        {
+          "name": "tag",
+          "selector_type": "css",
+          "selector_val": "ul.other-info>li:nth-child(4)",
+          "val": "stripped-1"
+        },
+        {
+          "name": "brief",
+          "selector_type": "css",
+          "selector_val": "div.des_info > div.clearfix > ul > li:nth-child(3) > span",
+          "val": "text"
+        },
+        {
+          "name": "qr_group",
+          "selector_type": "css",
+          "selector_val": "span.shiftcode:nth-child(2)>img",
+          "val": "src"
+        },
+        {
+          "name": "qr_master",
+          "selector_type": "css",
+          "selector_val": "span.shiftcode:nth-child(3)>img",
+          "val": "src"
+        },
+        {
+          "name": "account_master",
+          "selector_type": "css",
+          "selector_val": "span.des_info_text2:nth-child(2)",
+          "val": "text"
+        }
+      ]
+    },
+    "storage": {
+      "base_dir": "./data/weixinqun",
+      "data_name": "data.csv",
+      "img_dir": "imgs"
     }
   }
 }

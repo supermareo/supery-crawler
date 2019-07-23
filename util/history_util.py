@@ -11,6 +11,6 @@ def load(path='history/', name=None):
 
 
 # 更新历史记录
-def update(name,data, path='history/'):
+def update(name, data, path='history/'):
     json_str = json.dumps(data, indent=2)
     write_line(path + name + '.json', json_str)

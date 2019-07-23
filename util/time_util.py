@@ -28,20 +28,30 @@ REG_LIST = [REG_MINUTE, REG_HOUR, REG_DAY, REG_WEEK, REG_MONTH, REG_YEAR]
 # 1周前更新
 # 2个月前更新
 # 1年前更新
-def parse_time_str(time_str):
-    num = -1
+def parse_time_str(time_str, default=None):
+    num = None
     flag = None
     for reg in REG_LIST:
         if reg.fullmatch(time_str):
             all = reg.findall(time_str)
             num, flag = all[0][0], all[0][1]
-    if num == -1 or flag == None:
-        print(f'no match {time_str}')
-    return num, flag
-
-
-def compare():
-    pass
+    # 解析不出来，返回当前时间
+    if num is None or flag is None:
+        return default
+    num = int(num)
+    if flag == '分钟':
+        return minutes_time_stamp(num)
+    if flag == '小时':
+        return hours_time_stamp(num)
+    if flag == '天':
+        return days_time_stamp(num)
+    if flag == '周':
+        return weeks_time_stamp(num)
+    if flag == '月':
+        return months_time_stamp(num)
+    if flag == '年':
+        return years_time_stamp(num)
+    return default
 
 
 # 当前时间戳
@@ -143,16 +153,21 @@ def months_time_stamp(months, end=True):
         the_time = int(time.mktime(datetime.date(year, months, 1).timetuple()))
     return int(round(the_time * 1000))
 
+
+def years_time_stamp(years, end=True):
+    today = datetime.date.today()
+    year = today.year
+    year = years + year
+
+    if end:
+        the_time = int(time.mktime(datetime.date(year + 1, 1, 1).timetuple())) - 1
+    else:
+        the_time = int(time.mktime(datetime.date(year, 1, 1).timetuple()))
+
+    return int(round(the_time * 1000))
+
 # if __name__ == '__main__':
-#     print(months_time_stamp(-6))
-#     print(months_time_stamp(-6, end=False))
-#     print(months_time_stamp(-7))
-#     print(months_time_stamp(-7, end=False))
-#     print(months_time_stamp(-8))
-#     print(months_time_stamp(-8, end=False))
-#     print(months_time_stamp(4))
-#     print(months_time_stamp(4, end=False))
-#     print(months_time_stamp(5))
-#     print(months_time_stamp(5, end=False))
-#     print(months_time_stamp(6))
-#     print(months_time_stamp(6, end=False))
+#     print(years_time_stamp(1))
+#     print(years_time_stamp(1, False))
+#     print(years_time_stamp(2))
+#     print(years_time_stamp(-2, False))
