@@ -121,10 +121,13 @@ def extract(soup, cfg):
 
     doc = None
     if selector_type == 'css':
-        if 'list' in cfg:
-            doc = soup.select(selector_val)
+        if '' == selector_val:
+            doc = soup
         else:
-            doc = soup.select_one(selector_val)
+            if 'list' in cfg:
+                doc = soup.select(selector_val)
+            else:
+                doc = soup.select_one(selector_val)
     elif selector_type == 'find':
         selector_text = cfg['selector_text']
         if 'list' in cfg:
@@ -208,4 +211,5 @@ def restore_data(data):
 
 if __name__ == '__main__':
     # start(name='qunfenxiang')
-    start(name='weixinqun')
+    # start(name='weixinqun')
+    start(name='qianwanqun')

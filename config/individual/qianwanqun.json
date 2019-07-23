@@ -1,0 +1,114 @@
+{
+  "start_url": "http://www.qianwanqun.com/weixinqun/",
+  "next_page": {
+    "selector_type": "css",
+    "selector_val": "div.p_page.p_page-multi > ul > li:nth-child(9) > a",
+    "val": "href",
+    "val_prefix": "http://www.qianwanqun.com/weixinqun/"
+  },
+  "items": {
+    "selector_type": "css",
+    "selector_val": "div.p_list_wxq>ul>a",
+    "list": true,
+    "attrs": [
+      {
+        "name": "id",
+        "selector_type": "css",
+        "selector_val": "",
+        "val": "href",
+        "val_process": {
+          "method": "regex",
+          "regex": "/weixinqun/show-(\\d+).html",
+          "index": 0
+        }
+      },
+      {
+        "name": "url",
+        "selector_type": "css",
+        "selector_val": "",
+        "val": "href",
+        "val_prefix": "http://www.qianwanqun.com"
+      },
+      {
+        "name": "title",
+        "selector_type": "css",
+        "selector_val": "li>div.l2",
+        "val": "text"
+      },
+      {
+        "name": "last_update",
+        "selector_type": "css",
+        "selector_val": "li>div.l3",
+        "val": "stripped-0"
+      }
+    ]
+  },
+  "detail": {
+    "attrs": [
+      {
+        "name": "title",
+        "selector_type": "css",
+        "selector_val": "span.des_info_text>b",
+        "val": "text"
+      },
+      {
+        "name": "time",
+        "selector_type": "css",
+        "selector_val": "ul.other-info>li:nth-child(3)",
+        "val": "text",
+        "val_process": {
+          "method": "split",
+          "split": "：",
+          "index": 1
+        }
+      },
+      {
+        "name": "industry",
+        "selector_type": "css",
+        "selector_val": "ul.other-info>li:nth-child(1)",
+        "val": "stripped-1"
+      },
+      {
+        "name": "location",
+        "selector_type": "css",
+        "selector_val": "ul.other-info>li:nth-child(2)",
+        "val": "stripped-1"
+      },
+      {
+        "name": "tag",
+        "selector_type": "css",
+        "selector_val": "ul.other-info>li:nth-child(4)",
+        "val": "stripped-1"
+      },
+      {
+        "name": "brief",
+        "selector_type": "css",
+        "selector_val": "div.des_info > div.clearfix > ul > li:nth-child(3) > span",
+        "val": "text"
+      },
+      {
+        "name": "qr_group",
+        "selector_type": "css",
+        "selector_val": "span.shiftcode:nth-child(2)>img",
+        "val": "src"
+      },
+      {
+        "name": "qr_master",
+        "selector_type": "css",
+        "selector_val": "span.shiftcode:nth-child(3)>img",
+        "val": "src"
+      },
+      {
+        "name": "account_master",
+        "selector_type": "css",
+        "selector_val": "span.des_info_text2:nth-child(2)",
+        "val": "text"
+      }
+    ]
+  },
+  "storage": {
+    "base_dir": "./data/qianwanqun",
+    "data_name": "data.csv",
+    "img_dir": "imgs"
+  }
+}

@@ -16,6 +16,7 @@ REG_DAY = re.compile('(\d+)(天)前更新')
 REG_WEEK = re.compile('(\d+)(周)前更新')
 REG_MONTH = re.compile('(\d+)个(月)前更新')
 REG_YEAR = re.compile('(\d+)(年)前更新')
+REG_MONTH_DAY = re.compile('(\d{2})-(\d{2})')
 
 REG_LIST = [REG_MINUTE, REG_HOUR, REG_DAY, REG_WEEK, REG_MONTH, REG_YEAR]
 
@@ -35,28 +36,49 @@ def parse_time_str(time_str, default=None):
         if reg.fullmatch(time_str):
             all = reg.findall(time_str)
             num, flag = all[0][0], all[0][1]
+    if num is not None and flag is not None:
+        num = int(num)
+        if flag == '分钟':
+            return minutes_time_stamp(num)
+        if flag == '小时':
+            return hours_time_stamp(num)
+        if flag == '天':
+            return days_time_stamp(num)
+        if flag == '周':
+            return weeks_time_stamp(num)
+        if flag == '月':
+            return months_time_stamp(num)
+        if flag == '年':
+            return years_time_stamp(num)
+
+    if REG_MONTH_DAY.fullmatch(time_str):
+        all = REG_MONTH_DAY.findall(time_str)
+        month, day = int(all[0][0]), int(all[0][1])
+        return time_stamp(year=None, month=month, day=day)
+
     # 解析不出来，返回当前时间
     if num is None or flag is None:
         return default
-    num = int(num)
-    if flag == '分钟':
-        return minutes_time_stamp(num)
-    if flag == '小时':
-        return hours_time_stamp(num)
-    if flag == '天':
-        return days_time_stamp(num)
-    if flag == '周':
-        return weeks_time_stamp(num)
-    if flag == '月':
-        return months_time_stamp(num)
-    if flag == '年':
-        return years_time_stamp(num)
     return default
 
 
 # 当前时间戳
 def now_time_stamp():
     return int(round(time.time() * 1000))
+
+
+def time_stamp(year, month, day, end=True):
+    today = datetime.date.today()
+    if year is None:
+        year = today.year
+    if month is None:
+        month = today.month
+    if day is None:
+        day = today.day
+    the_time = int(time.mktime(datetime.date(year, month, day).timetuple()))
+    if end:
+        the_time += 60 * 60 * 24 - 1
+    return int(round(the_time * 1000))
 
 
 # 从当期时间算起，几天前后时间戳
@@ -167,6 +189,7 @@ def years_time_stamp(years, end=True):
     return int(round(the_time * 1000))
 
 # if __name__ == '__main__':
+#     print(parse_time_str('07-22'))
 #     print(years_time_stamp(1))
 #     print(years_time_stamp(1, False))
 #     print(years_time_stamp(2))
