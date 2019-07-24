@@ -1,4 +1,6 @@
-import requests, re
+import re
+
+import requests
 from bs4 import BeautifulSoup
 
 from util import config_util, history_util
@@ -45,15 +47,27 @@ def start(name):
         craw_list(url)
 
 
+def crawler_list_page(url):
+    html = requests.get(url).text
+    soup = BeautifulSoup(html, 'lxml')
+
+    # 提取下一页的url
+    cfg = config['next_page']
+    next_page_url = extract(soup, cfg)
+    next_page_url = None if next_page_url is '' else next_page_url
+    # 提取本页列表每一项
+    page_items = process_page_items(soup)
+
+    # 返回下一页url与本页列表每一项数据
+    return next_page_url, page_items
+
+
 def craw_list(url):
     print(f'start crawl {url}')
-    html = requests.get(url).text
-    soup = BeautifulSoup(html, 'html.parser')
+    next_page_url, page_items = crawler_list_page(url)
+    if next_page_url is not None:
+        url_array.append(next_page_url)
 
-    # 提取下一页地址并添加到列表待处理
-    process_next_page_url(soup)
-    # 提取页面要处理列表元素
-    page_items = process_page_items(soup)
     # 提取详情
     item_detail_list = []
     for page_item in page_items:
@@ -118,6 +132,9 @@ def process_page_items(soup):
 def extract(soup, cfg):
     selector_type = cfg['selector_type']
     selector_val = cfg['selector_val']
+
+    if selector_type == '':
+        return ''
 
     doc = None
     if selector_type == 'css':
@@ -211,5 +228,5 @@ def restore_data(data):
 
 if __name__ == '__main__':
     # start(name='qunfenxiang')
-    # start(name='weixinqun')
-    start(name='qianwanqun')
+    start(name='weixinqun')
+    # start(name='qianwanqun')
