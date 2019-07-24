@@ -39,6 +39,7 @@ def start(name):
     file_util.create_dirs_if_not_exists(base_dir)
     file_util.create_dirs_if_not_exists(img_dir)
     file_util.remove_file(data_path)
+    file_util.append_line(data_path, '编号,群标题,发布时间,行业,地区,标签,群简介,群二维码图片,群主微信号,群主二维码')
 
     url_array = [config['start_url']]
 
@@ -48,7 +49,9 @@ def start(name):
 
 
 def crawler_list_page(url):
-    html = requests.get(url).text
+    response = requests.get(url)
+    response.encoding = 'utf-8'
+    html = response.text
     soup = BeautifulSoup(html, 'lxml')
 
     # 提取下一页的url
@@ -94,8 +97,10 @@ def craw_list(url):
 # 爬取详情页
 def craw_detail(id, page_item):
     url = page_item['url']
-    print(f'star crawl detail {url}')
-    html = requests.get(url).text
+    print(f'start crawl detail {url}')
+    response = requests.get(url)
+    response.encoding = 'utf-8'
+    html = response.text
     soup = BeautifulSoup(html, 'lxml')
     # print(soup)
     attrs_cfg = config['detail']['attrs']
@@ -131,10 +136,10 @@ def process_page_items(soup):
 # 提取逻辑，这段应该是最复杂的
 def extract(soup, cfg):
     selector_type = cfg['selector_type']
-    selector_val = cfg['selector_val']
-
     if selector_type == '':
         return ''
+
+    selector_val = cfg['selector_val']
 
     doc = None
     if selector_type == 'css':
@@ -146,11 +151,23 @@ def extract(soup, cfg):
             else:
                 doc = soup.select_one(selector_val)
     elif selector_type == 'find':
+        if 'find_type' in cfg:
+            find_type = cfg['find_type']
+        else:
+            find_type = 'text'
+
         selector_text = cfg['selector_text']
         if 'list' in cfg:
-            doc = soup.find_all(selector_val, text=selector_text)
+            if find_type == 'text':
+                doc = soup.find_all(selector_val, text=selector_text)
+            else:
+                doc = soup.find_all(selector_val, attrs={find_type: selector_text})
         else:
-            doc = soup.find(selector_val, text=selector_text)
+            if find_type == 'text':
+                doc = soup.find(selector_val, text=selector_text)
+            else:
+                doc = soup.find(selector_val, attrs={find_type: selector_text})
+
         parent = cfg['parent']
         if parent:
             doc = doc.parent
@@ -228,5 +245,10 @@ def restore_data(data):
 
 if __name__ == '__main__':
     # start(name='qunfenxiang')
-    start(name='weixinqun')
+    # start(name='weixinqun')
     # start(name='qianwanqun')
+    # start(name='weixin28_qun')
+    # start(name='weixin28_hong')
+    # start(name='weixinfabu')
+    # start(name='jam9')
+    start(name='souweixin')

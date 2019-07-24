@@ -334,14 +334,604 @@
         },
         {
           "name": "account_master",
-          "selector_type": "css",
-          "selector_val": "div.ql > div:nth-child(1)",
+          "selector_type": "find",
+          "selector_val": "b",
+          "selector_text": "群主微信：",
+          "parent": true,
           "val": "stripped-1"
         }
       ]
     },
     "storage": {
       "base_dir": "./data/qianwanqun",
+      "data_name": "data.csv",
+      "img_dir": "imgs"
+    }
+  },
+  "weixin28_qun": {
+    "start_url": "http://www.weixin28.com/qun/",
+    "next_page": {
+      "selector_type": "find",
+      "selector_val": "a",
+      "selector_text": "下一页",
+      "parent": false,
+      "val": "href",
+      "val_prefix": "http://www.weixin28.com"
+    },
+    "items": {
+      "selector_type": "css",
+      "selector_val": "div.hover-border",
+      "list": true,
+      "attrs": [
+        {
+          "name": "id",
+          "selector_type": "css",
+          "selector_val": "a",
+          "val": "href",
+          "val_process": {
+            "method": "regex",
+            "regex": "/qun/[a-zA-Z]*/(\\d+).html",
+            "index": 0
+          }
+        },
+        {
+          "name": "url",
+          "selector_type": "css",
+          "selector_val": "a",
+          "val": "href",
+          "val_prefix": "http://www.weixin28.com"
+        },
+        {
+          "name": "title",
+          "selector_type": "css",
+          "selector_val": "p.title>a",
+          "val": "text"
+        },
+        {
+          "name": "last_update",
+          "selector_type": "css",
+          "selector_val": "span.fr",
+          "val": "text"
+        }
+      ]
+    },
+    "detail": {
+      "attrs": [
+        {
+          "name": "title",
+          "selector_type": "css",
+          "selector_val": "h1.title",
+          "val": "text"
+        },
+        {
+          "name": "time",
+          "selector_type": "css",
+          "selector_val": "div.intro-box > ul > li:nth-child(4)",
+          "val": "stripped-2"
+        },
+        {
+          "name": "industry",
+          "selector_type": "css",
+          "selector_val": "div.intro-box > ul > li:nth-child(2)",
+          "val": "stripped-2"
+        },
+        {
+          "name": "location",
+          "selector_type": "css",
+          "selector_val": "div.intro-box > ul > li:nth-child(7)>span.lx",
+          "val": "text"
+        },
+        {
+          "name": "tag",
+          "selector_type": "css",
+          "selector_val": "span.tags>a",
+          "val": "text"
+        },
+        {
+          "name": "brief",
+          "selector_type": "css",
+          "selector_val": "div.detail-box",
+          "val": "text"
+        },
+        {
+          "name": "qr_group",
+          "selector_type": "css",
+          "selector_val": "div.img>img:nth-child(1)",
+          "val": "src"
+        },
+        {
+          "name": "qr_master",
+          "selector_type": "css",
+          "selector_val": "div.img>img:nth-child(2)",
+          "val": "src"
+        },
+        {
+          "name": "account_master",
+          "selector_type": "css",
+          "selector_val": "span.f20",
+          "val": "text"
+        }
+      ]
+    },
+    "storage": {
+      "base_dir": "./data/weixin28_qun",
+      "data_name": "data.csv",
+      "img_dir": "imgs"
+    }
+  },
+  "weixin28_hong": {
+    "start_url": "http://www.weixin28.com/hong/",
+    "next_page": {
+      "selector_type": "find",
+      "selector_val": "a",
+      "selector_text": "下一页",
+      "parent": false,
+      "val": "href",
+      "val_prefix": "http://www.weixin28.com"
+    },
+    "items": {
+      "selector_type": "css",
+      "selector_val": "div.hover-border",
+      "list": true,
+      "attrs": [
+        {
+          "name": "id",
+          "selector_type": "css",
+          "selector_val": "a",
+          "val": "href",
+          "val_process": {
+            "method": "regex",
+            "regex": "/hong/[a-zA-Z]*/(\\d+).html",
+            "index": 0
+          }
+        },
+        {
+          "name": "url",
+          "selector_type": "css",
+          "selector_val": "a",
+          "val": "href",
+          "val_prefix": "http://www.weixin28.com"
+        },
+        {
+          "name": "title",
+          "selector_type": "css",
+          "selector_val": "p.title>a",
+          "val": "text"
+        },
+        {
+          "name": "last_update",
+          "selector_type": "css",
+          "selector_val": "span.fr",
+          "val": "text"
+        }
+      ]
+    },
+    "detail": {
+      "attrs": [
+        {
+          "name": "title",
+          "selector_type": "css",
+          "selector_val": "h1.title",
+          "val": "text"
+        },
+        {
+          "name": "time",
+          "selector_type": "css",
+          "selector_val": "div.intro-box > ul > li:nth-child(4)",
+          "val": "stripped-2"
+        },
+        {
+          "name": "industry",
+          "selector_type": "css",
+          "selector_val": "div.intro-box > ul > li:nth-child(2)",
+          "val": "stripped-2"
+        },
+        {
+          "name": "location",
+          "selector_type": "css",
+          "selector_val": "div.intro-box > ul > li:nth-child(7)>span.lx",
+          "val": "text"
+        },
+        {
+          "name": "tag",
+          "selector_type": "css",
+          "selector_val": "span.tags>a",
+          "val": "text"
+        },
+        {
+          "name": "brief",
+          "selector_type": "css",
+          "selector_val": "div.detail-box",
+          "val": "text"
+        },
+        {
+          "name": "qr_group",
+          "selector_type": "css",
+          "selector_val": "div.img>img:nth-child(1)",
+          "val": "src"
+        },
+        {
+          "name": "qr_master",
+          "selector_type": "css",
+          "selector_val": "div.img>img:nth-child(2)",
+          "val": "src"
+        },
+        {
+          "name": "account_master",
+          "selector_type": "css",
+          "selector_val": "span.f20",
+          "val": "text"
+        }
+      ]
+    },
+    "storage": {
+      "base_dir": "./data/weixin28_hong",
+      "data_name": "data.csv",
+      "img_dir": "imgs"
+    }
+  },
+  "weixinfabu": {
+    "start_url": "https://www.weixinfabu.com/group/",
+    "next_page": {
+      "selector_type": "find",
+      "selector_val": "a",
+      "find_type": "title",
+      "selector_text": "下一页",
+      "parent": false,
+      "val": "href",
+      "val_prefix": "https://www.weixinfabu.com"
+    },
+    "items": {
+      "selector_type": "css",
+      "selector_val": "div.border5",
+      "list": true,
+      "attrs": [
+        {
+          "name": "id",
+          "selector_type": "css",
+          "selector_val": "a",
+          "val": "href",
+          "val_process": {
+            "method": "regex",
+            "regex": "group_show/(\\d+)/",
+            "index": 0
+          }
+        },
+        {
+          "name": "url",
+          "selector_type": "css",
+          "selector_val": "a",
+          "val": "href"
+        },
+        {
+          "name": "title",
+          "selector_type": "css",
+          "selector_val": "p.goods_name>a",
+          "val": "text"
+        },
+        {
+          "name": "last_update",
+          "selector_type": "css",
+          "selector_val": "span.caaa",
+          "val": "text"
+        }
+      ]
+    },
+    "detail": {
+      "attrs": [
+        {
+          "name": "title",
+          "selector_type": "css",
+          "selector_val": "span.des_info_text>b",
+          "val": "text"
+        },
+        {
+          "name": "time",
+          "selector_type": "css",
+          "selector_val": "ul.other-info > li:nth-child(2)",
+          "val": "text",
+          "val_process": {
+            "method": "split",
+            "split": "：",
+            "index": 1
+          }
+        },
+        {
+          "name": "industry",
+          "selector_type": "css",
+          "selector_val": "ul.other-info > li:nth-child(1)>a",
+          "val": "text"
+        },
+        {
+          "name": "location",
+          "selector_type": "css",
+          "selector_val": "ul.other-info > li:nth-child(3)>a",
+          "val": "text"
+        },
+        {
+          "name": "tag",
+          "selector_type": "css",
+          "selector_val": "li.tag>a",
+          "val": "text"
+        },
+        {
+          "name": "brief",
+          "selector_type": "css",
+          "selector_val": "span.des_info_text2>pre",
+          "val": "text"
+        },
+        {
+          "name": "qr_group",
+          "selector_type": "css",
+          "selector_val": "div.iframe > span:nth-child(2)>img",
+          "val": "src",
+          "val_prefix": "https://www.weixinfabu.com"
+        },
+        {
+          "name": "qr_master",
+          "selector_type": "css",
+          "selector_val": "div.iframe > span:nth-child(3)>img",
+          "val": "src",
+          "val_prefix": "https://www.weixinfabu.com"
+        },
+        {
+          "name": "account_master",
+          "selector_type": "css",
+          "selector_val": "ul.other-info > li:nth-child(6)",
+          "val": "text",
+          "val_process": {
+            "method": "split",
+            "split": "：",
+            "index": 1
+          }
+        }
+      ]
+    },
+    "storage": {
+      "base_dir": "./data/weixinfabu",
+      "data_name": "data.csv",
+      "img_dir": "imgs"
+    }
+  },
+  "jam9": {
+    "start_url": "https://www.jam9.cc/weixinqun/index.html",
+    "next_page": {
+      "selector_type": "find",
+      "selector_val": "a",
+      "selector_text": "下一页",
+      "parent": false,
+      "val": "href",
+      "val_prefix": "https://www.jam9.cc"
+    },
+    "items": {
+      "selector_type": "css",
+      "selector_val": "div.uk-container>ul.uk-grid>li",
+      "list": true,
+      "attrs": [
+        {
+          "name": "id",
+          "selector_type": "css",
+          "selector_val": "a",
+          "val": "href",
+          "val_process": {
+            "method": "regex",
+            "regex": "/weixinqun/[a-zA-Z]*/(\\d+).html",
+            "index": 0
+          }
+        },
+        {
+          "name": "url",
+          "selector_type": "css",
+          "selector_val": "a",
+          "val": "href",
+          "val_prefix": "https://www.jam9.cc"
+        },
+        {
+          "name": "title",
+          "selector_type": "css",
+          "selector_val": "div.uk-text-meta.mp10",
+          "val": "text"
+        },
+        {
+          "name": "last_update",
+          "selector_type": "css",
+          "selector_val": "div.uk-width-1-2.uk-text-meta",
+          "val": "text"
+        }
+      ]
+    },
+    "detail": {
+      "attrs": [
+        {
+          "name": "title",
+          "selector_type": "css",
+          "selector_val": "h1.hbt",
+          "val": "text"
+        },
+        {
+          "name": "time",
+          "selector_type": "css",
+          "selector_val": "ul.uk-list > li:nth-child(4)",
+          "val": "text",
+          "val_process": {
+            "method": "split",
+            "split": "：",
+            "index": 1
+          }
+        },
+        {
+          "name": "industry",
+          "selector_type": "css",
+          "selector_val": "ul.uk-list > li:nth-child(2)",
+          "val": "text",
+          "val_process": {
+            "method": "split",
+            "split": "：",
+            "index": 1
+          }
+        },
+        {
+          "name": "location",
+          "selector_type": "css",
+          "selector_val": "ul.uk-list > li:nth-child(3)>div>code",
+          "val": "text"
+        },
+        {
+          "name": "tag",
+          "selector_type": "css",
+          "selector_val": "ul.uk-list > li:nth-child(2)",
+          "val": "text",
+          "val_process": {
+            "method": "split",
+            "split": "：",
+            "index": 1
+          }
+        },
+        {
+          "name": "brief",
+          "selector_type": "css",
+          "selector_val": "#text",
+          "val": "stripped-0"
+        },
+        {
+          "name": "qr_group",
+          "selector_type": "css",
+          "selector_val": "div.jam-imgp>img",
+          "val": "src"
+        },
+        {
+          "name": "qr_master",
+          "selector_type": "",
+          "selector_val": ""
+        },
+        {
+          "name": "account_master",
+          "selector_type": "css",
+          "selector_val": "ul.uk-list > li:nth-child(1)>span>code",
+          "val": "text"
+        }
+      ]
+    },
+    "storage": {
+      "base_dir": "./data/jam9",
+      "data_name": "data.csv",
+      "img_dir": "imgs"
+    }
+  },
+  "souweixin": {
+    "start_url": "https://www.souweixin.com/group",
+    "next_page": {
+      "selector_type": "find",
+      "selector_val": "a",
+      "find_type": "title",
+      "selector_text": "下一页",
+      "parent": false,
+      "val": "href",
+      "val_prefix": "https://www.souweixin.com"
+    },
+    "items": {
+      "selector_type": "css",
+      "selector_val": "div.boldBorder",
+      "list": true,
+      "attrs": [
+        {
+          "name": "id",
+          "selector_type": "css",
+          "selector_val": "a",
+          "val": "href",
+          "val_process": {
+            "method": "regex",
+            "regex": "/group\\?id=(\\d+)",
+            "index": 0
+          }
+        },
+        {
+          "name": "url",
+          "selector_type": "css",
+          "selector_val": "a",
+          "val": "href",
+          "val_prefix": "https://www.souweixin.com"
+        },
+        {
+          "name": "title",
+          "selector_type": "css",
+          "selector_val": "div.lg_txt",
+          "val": "text"
+        },
+        {
+          "name": "last_update",
+          "selector_type": "css",
+          "selector_val": "div.f12.c888",
+          "val": "stripped-[0,1,None]"
+        }
+      ]
+    },
+    "detail": {
+      "attrs": [
+        {
+          "name": "title",
+          "selector_type": "css",
+          "selector_val": "div.code_info>h1",
+          "val": "text"
+        },
+        {
+          "name": "time",
+          "selector_type": "find",
+          "selector_val": "span",
+          "selector_text": "时间：",
+          "parent": true,
+          "val": "stripped-1"
+        },
+        {
+          "name": "industry",
+          "selector_type": "find",
+          "selector_val": "span",
+          "selector_text": "行业：",
+          "parent": true,
+          "val": "stripped-1"
+        },
+        {
+          "name": "location",
+          "selector_type": "find",
+          "selector_val": "span",
+          "selector_text": "地区：",
+          "parent": true,
+          "val": "stripped-1"
+        },
+        {
+          "name": "tag",
+          "selector_type": "find",
+          "selector_val": "span",
+          "selector_text": "标签：",
+          "parent": true,
+          "val": "stripped-1"
+        },
+        {
+          "name": "brief",
+          "selector_type": "",
+          "selector_val": ""
+        },
+        {
+          "name": "qr_group",
+          "selector_type": "css",
+          "selector_val": "div.code_pic>div.p1>p>img",
+          "val": "src"
+        },
+        {
+          "name": "qr_master",
+          "selector_type": "",
+          "selector_val": ""
+        },
+        {
+          "name": "account_master",
+          "selector_type": "css",
+          "selector_val": "div.green_bg>p:nth-child(1)>span",
+          "val": "text"
+        }
+      ]
+    },
+    "storage": {
+      "base_dir": "./data/souweixin",
       "data_name": "data.csv",
       "img_dir": "imgs"
     }
