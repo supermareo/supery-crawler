@@ -49,7 +49,7 @@ def start(name):
 
 
 def crawler_list_page(url):
-    response = requests.get(url)
+    response = requests.get(url,verify = False)
     response.encoding = 'utf-8'
     html = response.text
     soup = BeautifulSoup(html, 'lxml')
@@ -252,4 +252,5 @@ if __name__ == '__main__':
     # start(name='weixinfabu')
     # start(name='jam9')
     # start(name='souweixin')
-    start(name='haoweixin')
+    # start(name='haoweixin')
+    start(name='vhujia')

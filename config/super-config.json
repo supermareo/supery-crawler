@@ -1054,5 +1054,135 @@
       "data_name": "data.csv",
       "img_dir": "imgs"
     }
+  },
+  "vhujia": {
+    "start_url": "https://www.vhujia.com/weixin/index/p/1.html",
+    "next_page": {
+      "selector_type": "find",
+      "selector_val": "a",
+      "selector_text": "下一页",
+      "parent": false,
+      "val": "href",
+      "val_prefix": "https://www.vhujia.com"
+    },
+    "items": {
+      "selector_type": "css",
+      "selector_val": "li>dl",
+      "list": true,
+      "attrs": [
+        {
+          "name": "id",
+          "selector_type": "css",
+          "selector_val": "dt>a",
+          "val": "href",
+          "val_process": {
+            "method": "regex",
+            "regex": "/weixin/show/id/(\\d+).html",
+            "index": 0
+          }
+        },
+        {
+          "name": "url",
+          "selector_type": "css",
+          "selector_val": "dt>a",
+          "val": "href",
+          "val_prefix": "https://www.vhujia.com"
+        },
+        {
+          "name": "title",
+          "selector_type": "css",
+          "selector_val": "dd.tit>a>b",
+          "val": "text"
+        },
+        {
+          "name": "last_update",
+          "selector_type": "",
+          "selector_val": ""
+        }
+      ]
+    },
+    "detail": {
+      "attrs": [
+        {
+          "name": "title",
+          "selector_type": "css",
+          "selector_val": "div.viewm>h1",
+          "val": "text"
+        },
+        {
+          "name": "time",
+          "selector_type": "find",
+          "selector_val": "span",
+          "selector_text": "发布时间：",
+          "parent": true,
+          "val": "stripped-1"
+        },
+        {
+          "name": "industry",
+          "selector_type": "find",
+          "selector_val": "span",
+          "selector_text": "分类：",
+          "parent": false,
+          "val": "text",
+          "val_process": {
+            "method": "split",
+            "split": "：",
+            "index": 1
+          }
+        },
+        {
+          "name": "location",
+          "selector_type": "find",
+          "selector_val": "span",
+          "selector_text": "所属地区：",
+          "parent": true,
+          "val": "stripped-1"
+        },
+        {
+          "name": "tag",
+          "selector_type": "find",
+          "selector_val": "span",
+          "selector_text": "标签：",
+          "parent": true,
+          "val": "text",
+          "val_process": {
+            "method": "split",
+            "split": "：",
+            "index": 1
+          }
+        },
+        {
+          "name": "brief",
+          "selector_type": "css",
+          "selector_val": "div.content>p",
+          "val": "text"
+        },
+        {
+          "name": "qr_group",
+          "selector_type": "css",
+          "selector_val": "div.viewm>div>div>img",
+          "val": "src",
+          "val_prefix": "https://www.vhujia.com"
+        },
+        {
+          "name": "qr_master",
+          "selector_type": "",
+          "selector_val": ""
+        },
+        {
+          "name": "account_master",
+          "selector_type": "find",
+          "selector_val": "span",
+          "selector_text": "微信号：",
+          "parent": true,
+          "val": "stripped-1"
+        }
+      ]
+    },
+    "storage": {
+      "base_dir": "./data/vhujia",
+      "data_name": "data.csv",
+      "img_dir": "imgs"
+    }
   }
 }
