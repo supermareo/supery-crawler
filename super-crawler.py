@@ -16,10 +16,14 @@ data_path = None
 img_dir = None
 crawler_name = None
 url_array = []
+# 默认编码是utf-8，有的网站是gbk
+encoding = 'utf-8'
+# 跳过部分网页
+detail_skip = []
 
 
 def start(name):
-    global config, history, data_path, img_dir, crawler_name, url_array
+    global config, history, data_path, img_dir, crawler_name, url_array, encoding, detail_skip
 
     crawler_name = name
     config = config_util.load_config(name=crawler_name)
@@ -38,6 +42,10 @@ def start(name):
     data_path = f'{base_dir}/{data_name}'
     img_dir = storage['img_dir']
     img_dir = f'{base_dir}/{img_dir}/'
+    if 'encoding' in config:
+        encoding = config['encoding']
+    if 'skip' in config['detail']:
+        detail_skip = config['detail']['skip']
 
     file_util.create_dirs_if_not_exists(base_dir)
     file_util.create_dirs_if_not_exists(img_dir)
@@ -53,7 +61,7 @@ def start(name):
 
 def crawler_list_page(url):
     response = requests.get(url, verify=False)
-    response.encoding = 'utf-8'
+    response.encoding = encoding
     html = response.text
     soup = BeautifulSoup(html, 'lxml')
 
@@ -77,8 +85,14 @@ def craw_list(url):
     # 提取详情
     item_detail_list = []
     for page_item in page_items:
+        # 忽略部分特殊的页面
+        url = page_item['url']
+        if url in detail_skip:
+            continue
+
         last_update = time_util.parse_time_str(page_item['last_update'], time_util.now_time_stamp())
         id = page_item['id']
+
         if not id in history:
             history[id] = {}
             detail = craw_detail(id, page_item)
@@ -86,12 +100,12 @@ def craw_list(url):
             detail = craw_detail(id, page_item)
         else:
             detail = history[id]['data']
-
         item_detail_list.append(detail)
         # 更新时间
         history[id]['last_crawler_time'] = time_util.now_time_stamp()
         # 更新数据
         history[id]['data'] = detail
+
     for item_detail in item_detail_list:
         restore_data(item_detail)
     history_util.update(crawler_name, history)
@@ -102,7 +116,7 @@ def craw_detail(id, page_item):
     url = page_item['url']
     print(f'start crawl detail {url}')
     response = requests.get(url, verify=False)
-    response.encoding = 'utf-8'
+    response.encoding = encoding
     html = response.text
     soup = BeautifulSoup(html, 'lxml')
     # print(soup)
@@ -256,4 +270,5 @@ if __name__ == '__main__':
     # start(name='jam9')
     # start(name='souweixin')
     # start(name='haoweixin')
-    start(name='vhujia')
+    # start(name='vhujia')
+    start(name='wekui')
