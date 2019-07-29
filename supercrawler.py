@@ -21,14 +21,30 @@ encoding = 'utf-8'
 # 跳过部分网页
 detail_skip = []
 
+callback = None
 
-def start(name):
-    global config, history, data_path, img_dir, crawler_name, url_array, encoding, detail_skip
+progress_page = 0
+progress_details = 0
+progress_detail_save = 0
+
+
+def call_callback(callback_method, arg):
+    if callback_method is not None:
+        callback_method(arg)
+
+
+def start(name, callback_method):
+    global config, history, data_path, img_dir, crawler_name, url_array, encoding, detail_skip, callback, progress_page, progress_details, progress_detail_save
+    progress_page = 1
+    progress_details = 1
+    progress_detail_save = 1
+    callback = callback_method
 
     crawler_name = name
     config = config_util.load_config(name=crawler_name)
     history = history_util.load(name=crawler_name)
     if config is None:
+        call_callback(callback, f'找不到{crawler_name}对应的配置信息，无法继续')
         print(f'no config for {crawler_name}, program exit')
         return
     if history is None:
@@ -78,13 +94,18 @@ def crawler_list_page(url):
 
 def craw_list(url):
     print(f'start crawl {url}')
+    global progress_page, progress_details, progress_detail_save
+
+    call_callback(callback, f'正在采集第{progress_page}页数据')
     next_page_url, page_items = crawler_list_page(url)
+    call_callback(callback, f'完成采集第{progress_page}页数据')
     if next_page_url is not None:
         url_array.append(next_page_url)
 
     # 提取详情
     item_detail_list = []
     for page_item in page_items:
+        call_callback(callback, f'正在采集第{progress_page}页，第{progress_details}项数据')
         # 忽略部分特殊的页面
         url = page_item['url']
         if url in detail_skip:
@@ -105,21 +126,28 @@ def craw_list(url):
         history[id]['last_crawler_time'] = time_util.now_time_stamp()
         # 更新数据
         history[id]['data'] = detail
+        call_callback(callback, f'完成采集第{progress_page}页，第{progress_details}项数据')
+        progress_details += 1
 
     for item_detail in item_detail_list:
+        call_callback(callback, f'正在存储第{progress_page}页，第{progress_detail_save}项数据')
         restore_data(item_detail)
+        call_callback(callback, f'完成存储第{progress_page}页，第{progress_detail_save}项数据')
+        progress_detail_save += 1
+
     history_util.update(crawler_name, history)
+    progress_page += 1
 
 
 # 爬取详情页
 def craw_detail(id, page_item):
     url = page_item['url']
     print(f'start crawl detail {url}')
+    # call_callback(callback, f'start crawl detail {url}')
     response = requests.get(url, verify=False)
     response.encoding = encoding
     html = response.text
     soup = BeautifulSoup(html, 'lxml')
-    # print(soup)
     attrs_cfg = config['detail']['attrs']
     item = {'id': id}
     for attr_cfg in attrs_cfg:
@@ -242,6 +270,7 @@ def extract(soup, cfg):
 
 def restore_data(data):
     print(f'restore {data}')
+    # call_callback(callback, f'restore {data}')
     # 下载图片
     qr_group_name = download_img(data["qr_group"], img_dir + next_img_name(img_dir))
     qr_master_name = download_img(data["qr_master"], img_dir + next_img_name(img_dir, type='master'))
@@ -259,16 +288,15 @@ def restore_data(data):
     # 写文件
     file_util.append_line(data_path, line)
 
-
-if __name__ == '__main__':
-    # start(name='qunfenxiang')
-    # start(name='weixinqun')
-    # start(name='qianwanqun')
-    # start(name='weixin28_qun')
-    # start(name='weixin28_hong')
-    # start(name='weixinfabu')
-    # start(name='jam9')
-    # start(name='souweixin')
-    # start(name='haoweixin')
-    # start(name='vhujia')
-    start(name='wekui')
+# if __name__ == '__main__':
+#     # start(name='qunfenxiang')
+#     # start(name='weixinqun')
+#     # start(name='qianwanqun')
+#     # start(name='weixin28_qun')
+#     # start(name='weixin28_hong')
+#     # start(name='weixinfabu')
+#     # start(name='jam9')
+#     # start(name='souweixin')
+#     # start(name='haoweixin')
+#     # start(name='vhujia')
+#     start(name='wekui')

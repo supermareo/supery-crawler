@@ -13,6 +13,8 @@ from util.time_util import today_date_str
 # 返回文件名称
 # 如果下载出错，返回空字符串
 def download_img(url, path):
+    if len(url) == 0:
+        return ''
     try:
         response = requests.get(url, verify=False)
         write_bytes(path, response.content)
