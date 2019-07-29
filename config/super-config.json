@@ -1119,10 +1119,8 @@
         },
         {
           "name": "industry",
-          "selector_type": "find",
-          "selector_val": "span",
-          "selector_text": "分类：",
-          "parent": false,
+          "selector_type": "css",
+          "selector_val": "div.viewm > div > ul > li:nth-child(6) > span",
           "val": "text",
           "val_process": {
             "method": "split",

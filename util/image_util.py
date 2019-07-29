@@ -14,7 +14,7 @@ from util.time_util import today_date_str
 # 如果下载出错，返回空字符串
 def download_img(url, path):
     try:
-        response = requests.get(url)
+        response = requests.get(url, verify=False)
         write_bytes(path, response.content)
         return path.split('/')[-1]
     except:

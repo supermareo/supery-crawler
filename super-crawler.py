@@ -7,6 +7,9 @@ from util import config_util, history_util
 from util import time_util, file_util
 from util.image_util import download_img, next_img_name
 
+# 忽略warning日志
+requests.packages.urllib3.disable_warnings()
+
 config = None
 history = None
 data_path = None
@@ -49,7 +52,7 @@ def start(name):
 
 
 def crawler_list_page(url):
-    response = requests.get(url,verify = False)
+    response = requests.get(url, verify=False)
     response.encoding = 'utf-8'
     html = response.text
     soup = BeautifulSoup(html, 'lxml')
@@ -98,7 +101,7 @@ def craw_list(url):
 def craw_detail(id, page_item):
     url = page_item['url']
     print(f'start crawl detail {url}')
-    response = requests.get(url)
+    response = requests.get(url, verify=False)
     response.encoding = 'utf-8'
     html = response.text
     soup = BeautifulSoup(html, 'lxml')
