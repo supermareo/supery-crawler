@@ -1451,6 +1451,238 @@ config_dict = {
             "data_name": "data.csv",
             "img_dir": "imgs"
         }
+    },
+    "nihaoweixin": {
+        "start_url": "https://www.nihaoweixin.com/group/",
+        "next_page": {
+            "selector_type": "css",
+            "selector_val": "a.pageNext",
+            "val": "href",
+            "val_prefix": "https://www.nihaoweixin.com"
+        },
+        "items": {
+            "selector_type": "css",
+            "selector_val": "div.boldBorder",
+            "list": True,
+            "attrs": [
+                {
+                    "name": "id",
+                    "selector_type": "css",
+                    "selector_val": "a",
+                    "val": "href",
+                    "val_process": {
+                        "method": "regex",
+                        "regex": "/group/(\\d+).html",
+                        "index": 0
+                    }
+                },
+                {
+                    "name": "url",
+                    "selector_type": "css",
+                    "selector_val": "a",
+                    "val": "href",
+                    "val_prefix": "https://www.nihaoweixin.com"
+                },
+                {
+                    "name": "title",
+                    "selector_type": "css",
+                    "selector_val": "div.lg_intro",
+                    "val": "text"
+                },
+                {
+                    "name": "last_update",
+                    "selector_type": "css",
+                    "selector_val": "div.f12.c888",
+                    "val": "stripped-[0,1,None]"
+                }
+            ]
+        },
+        "detail": {
+            "attrs": [
+                {
+                    "name": "title",
+                    "selector_type": "css",
+                    "selector_val": "div.code_info>h1",
+                    "val": "text"
+                },
+                {
+                    "name": "time",
+                    "selector_type": "find",
+                    "selector_val": "span",
+                    "selector_text": "时间：",
+                    "parent": True,
+                    "val": "stripped-1"
+                },
+                {
+                    "name": "industry",
+                    "selector_type": "find",
+                    "selector_val": "span",
+                    "selector_text": "行业：",
+                    "parent": True,
+                    "val": "stripped-1"
+                },
+                {
+                    "name": "location",
+                    "selector_type": "find",
+                    "selector_val": "span",
+                    "selector_text": "地区：",
+                    "parent": True,
+                    "val": "stripped-1"
+                },
+                {
+                    "name": "tag",
+                    "selector_type": "find",
+                    "selector_val": "span",
+                    "selector_text": "标签：",
+                    "parent": True,
+                    "val": "stripped-1"
+                },
+                {
+                    "name": "brief",
+                    "selector_type": "css",
+                    "selector_val": "div.code_info>p.f18",
+                    "val": "text"
+                },
+                {
+                    "name": "qr_group",
+                    "selector_type": "css",
+                    "selector_val": "div.code_pic > span:nth-child(2) > div > p:nth-child(1) > img",
+                    "val": "src",
+                    "val_prefix": "http://www.nihaoweixin.com"
+                },
+                {
+                    "name": "qr_master",
+                    "selector_type": "css",
+                    "selector_val": "div.code_pic > span:nth-child(3) > div > p:nth-child(1) > img",
+                    "val": "src",
+                    "val_prefix": "http://www.nihaoweixin.com"
+                },
+                {
+                    "name": "account_master",
+                    "selector_type": "css",
+                    "selector_val": "div.green_bg>p:nth-child(1)>span",
+                    "val": "text"
+                }
+            ]
+        },
+        "storage": {
+            "base_dir": "./data/nihaoweixin",
+            "data_name": "data.csv",
+            "img_dir": "imgs"
+        }
+    },
+    "wxqun": {
+        "start_url": "http://www.wxqun.com/wxq",
+        "next_page": {
+            "selector_type": "css",
+            "selector_val": "li.next>a",
+            "val": "href",
+            "val_prefix": "http://www.wxqun.com"
+        },
+        "items": {
+            "selector_type": "css",
+            "selector_val": "div.show>ul>li>div",
+            "list": True,
+            "attrs": [
+                {
+                    "name": "id",
+                    "selector_type": "css",
+                    "selector_val": "a",
+                    "val": "href",
+                    "val_process": {
+                        "method": "regex",
+                        "regex": "http://www.wxqun.com/wxq/(\\d+).html",
+                        "index": 0
+                    }
+                },
+                {
+                    "name": "url",
+                    "selector_type": "css",
+                    "selector_val": "a",
+                    "val": "href"
+                },
+                {
+                    "name": "title",
+                    "selector_type": "css",
+                    "selector_val": "a",
+                    "val": "text"
+                },
+                {
+                    "name": "last_update",
+                    "selector_type": "css",
+                    "selector_val": "div.show > ul > li > div > p:nth-child(2) > span:nth-child(1)",
+                    "val": "text"
+                }
+            ]
+        },
+        "detail": {
+            "attrs": [
+                {
+                    "name": "title",
+                    "selector_type": "css",
+                    "selector_val": "div.con_info>h1",
+                    "val": "text"
+                },
+                {
+                    "name": "time",
+                    "selector_type": "css",
+                    "selector_val": "div.con_info>ul>li:nth-child(2)",
+                    "val": "text",
+                    "val_process": {
+                        "method": "split",
+                        "split": "：",
+                        "index": 1
+                    }
+                },
+                {
+                    "name": "industry",
+                    "selector_type": "css",
+                    "selector_val": "div.con_info>ul>li:nth-child(1)>a",
+                    "val": "text"
+                },
+                {
+                    "name": "location",
+                    "selector_type": "css",
+                    "selector_val": "div.con_info>ul>li:nth-child(3)>a",
+                    "val": "text"
+                },
+                {
+                    "name": "tag",
+                    "selector_type": "css",
+                    "selector_val": "div.con_info>ul>li:nth-child(4)>span",
+                    "val": "text"
+                },
+                {
+                    "name": "brief",
+                    "selector_type": "css",
+                    "selector_val": "div.con_info > p:nth-child(3) > span:nth-child(2)",
+                    "val": "text"
+                },
+                {
+                    "name": "qr_group",
+                    "selector_type": "css",
+                    "selector_val": "div.con_img > p > span:nth-child(1) > img",
+                    "val": "src"
+                },
+                {
+                    "name": "qr_master",
+                    "selector_type": "css",
+                    "selector_val": "div.con_img > p > span:nth-child(2) > img",
+                    "val": "src"
+                },
+                {
+                    "name": "account_master",
+                    "selector_type": "css",
+                    "selector_val": "div.con_info > p:nth-child(5)>span",
+                    "val": "text"
+                }
+            ]
+        },
+        "storage": {
+            "base_dir": "./data/wxqun",
+            "data_name": "data.csv",
+            "img_dir": "imgs"
+        }
     }
 }
 

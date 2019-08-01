@@ -19,8 +19,11 @@ website_zh_en_map = {
     '好微信': 'haoweixin',
     '微互加': 'vhujia',
     '微魁网': 'wekui',
-    '群68':'qun68'
+    '群68': 'qun68',
+    '你好微信': 'nihaoweixin',
+    '微信群qun': 'wxqun'
 }
+
 website_zh_list = list(website_zh_en_map.keys())
 
 win = tk.Tk()
