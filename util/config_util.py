@@ -1317,6 +1317,140 @@ config_dict = {
             "data_name": "data.csv",
             "img_dir": "imgs"
         }
+    },
+    "qun68": {
+        "start_url": "http://qun68.com/group/",
+        "next_page": {
+            "selector_type": "find",
+            "selector_val": "a",
+            "find_type": "title",
+            "selector_text": "下一页",
+            "parent": False,
+            "val": "href",
+            "val_prefix": "http://qun68.com"
+        },
+        "items": {
+            "selector_type": "css",
+            "selector_val": "div.border5",
+            "list": True,
+            "attrs": [
+                {
+                    "name": "id",
+                    "selector_type": "css",
+                    "selector_val": "a",
+                    "val": "href",
+                    "val_process": {
+                        "method": "regex",
+                        "regex": "/group/(\\d+).html",
+                        "index": 0
+                    }
+                },
+                {
+                    "name": "url",
+                    "selector_type": "css",
+                    "selector_val": "a",
+                    "val": "href",
+                    "val_prefix": "http://qun68.com"
+                },
+                {
+                    "name": "title",
+                    "selector_type": "css",
+                    "selector_val": "a",
+                    "val": "title"
+                },
+                {
+                    "name": "last_update",
+                    "selector_type": "css",
+                    "selector_val": "p.wxNum",
+                    "val": "stripped-[0,1,None]"
+                }
+            ]
+        },
+        "detail": {
+            "attrs": [
+                {
+                    "name": "title",
+                    "selector_type": "css",
+                    "selector_val": "span.des_info_text>b",
+                    "val": "text"
+                },
+                {
+                    "name": "time",
+                    "selector_type": "css",
+                    "selector_val": "ul.other-info>li:nth-child(2)",
+                    "val": "text",
+                    "val_process": {
+                        "method": "split",
+                        "split": "：",
+                        "index": 1
+                    }
+                },
+                {
+                    "name": "industry",
+                    "selector_type": "css",
+                    "selector_val": "ul.other-info>li:nth-child(1)",
+                    "val": "text",
+                    "val_process": {
+                        "method": "split",
+                        "split": "：",
+                        "index": 1
+                    }
+                },
+                {
+                    "name": "location",
+                    "selector_type": "css",
+                    "selector_val": "ul.other-info>li:nth-child(3)",
+                    "val": "text",
+                    "val_process": {
+                        "method": "split",
+                        "split": "：",
+                        "index": 1
+                    }
+                },
+                {
+                    "name": "tag",
+                    "selector_type": "css",
+                    "selector_val": "ul.other-info>li:nth-child(4)",
+                    "val": "text",
+                    "val_process": {
+                        "method": "split",
+                        "split": "：",
+                        "index": 1
+                    }
+                },
+                {
+                    "name": "brief",
+                    "selector_type": "css",
+                    "selector_val": "span.des_info_text2:nth-child(1)",
+                    "val": "text"
+                },
+                {
+                    "name": "qr_group",
+                    "selector_type": "css",
+                    "selector_val": "span.shiftcode:nth-child(2) > img",
+                    "val": "src",
+                    "val_prefix": "http://qun68.com"
+                },
+                {
+                    "name": "qr_master",
+                    "selector_type": "css",
+                    "selector_val": "span.shiftcode:nth-child(3) > img",
+                    "val": "src",
+                    "val_prefix": "http://qun68.com"
+                },
+                {
+                    "name": "account_master",
+                    "selector_type": "css",
+                    "selector_val": "span.des_info_text2:nth-child(2)",
+                    "val": "text"
+                }
+            ]
+        },
+        "storage": {
+            "base_dir": "./data/qun68",
+            "data_name": "data.csv",
+            "img_dir": "imgs"
+        }
     }
 }
 

@@ -263,7 +263,8 @@ def extract(soup, cfg):
     result = result.strip()
     if 'val_prefix' in cfg:
         val_prefix = cfg['val_prefix']
-        return val_prefix + result
+        if not result.startswith(val_prefix):
+            return val_prefix + result
 
     return result
 
