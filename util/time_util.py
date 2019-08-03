@@ -16,13 +16,16 @@ REG_DAY = re.compile('(\d+)(天)前\s*[更新]*')
 REG_WEEK = re.compile('(\d+)(周)前\s*[更新]*')
 REG_MONTH = re.compile('(\d+)个(月)前\s*[更新]*')
 REG_YEAR = re.compile('(\d+)(年)前\s*[更新]*')
+
+REG_LIST = [REG_MINUTE, REG_HOUR, REG_DAY, REG_WEEK, REG_MONTH, REG_YEAR]
+
 REG_YEAR_MONTH_DAY = re.compile('(\d{4})-(\d{2})-(\d{2})')
 REG_MONTH_DAY = re.compile('(\d{2})-(\d{2})')
 
 REG_MONTH_DAY_2 = re.compile("\d+[周|个|月|年]+\s*前\s*\((\d{2})-(\d{2})\)\s*[更新]*")
 REG_YEAR_MONTH_DAY_2 = re.compile("\d+[周|个|月|年]+\s*前\s*\((\d{4})-(\d{2})-(\d{2})\)\s*[更新]*")
 
-REG_LIST = [REG_MINUTE, REG_HOUR, REG_DAY, REG_WEEK, REG_MONTH, REG_YEAR]
+REG_GPWXQ = re.compile('(\d)*([秒|分|小|天|年]{1}[钟|时]*)')
 
 
 # 对网页上的时间格式进行处理，转换为时间戳
@@ -35,6 +38,10 @@ REG_LIST = [REG_MINUTE, REG_HOUR, REG_DAY, REG_WEEK, REG_MONTH, REG_YEAR]
 # 1年前更新
 # 07-21
 # 2019-01-12
+# 秒
+# 2分钟
+# 2小时
+# 2天
 def parse_time_str(time_str, default=None):
     num = None
     flag = None
@@ -43,8 +50,16 @@ def parse_time_str(time_str, default=None):
             all = reg.findall(time_str)
             num, flag = all[0][0], all[0][1]
             break
+    if num is None or flag is None:
+        if REG_GPWXQ.fullmatch(time_str):
+            all = REG_GPWXQ.findall(time_str)
+            num, flag = all[0][0], all[0][1]
+            if flag == '秒':
+                num = 0
+                flag = '分钟'
+
     if num is not None and flag is not None:
-        num = int(num)
+        num = -1 * int(num)
         if flag == '分钟':
             return minutes_time_stamp(num)
         if flag == '小时':
@@ -210,7 +225,12 @@ def years_time_stamp(years, end=True):
 
     return int(round(the_time * 1000))
 
-# if __name__ == '__main__':
+
+if __name__ == '__main__':
+    print(parse_time_str('秒'))
+    print(parse_time_str('1分钟'))
+    print(parse_time_str('1天'))
+    print(parse_time_str('1年'))
 #     print(parse_time_str('07-22'))
 #     print(years_time_stamp(1))
 #     print(years_time_stamp(1, False))

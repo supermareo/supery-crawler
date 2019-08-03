@@ -1683,7 +1683,253 @@ config_dict = {
             "data_name": "data.csv",
             "img_dir": "imgs"
         }
+    },
+    "gpwxq": {
+        "start_url": "http://www.gpwxq.com/weixin-index-id-44.html",
+        "next_page": {
+            "selector_type": "find",
+            "selector_val": "a",
+            "selector_text": "下一页",
+            "val": "href",
+            "val_prefix": "http://www.gpwxq.com"
+        },
+        "items": {
+            "selector_type": "css",
+            "selector_val": "div.qun-content>ul>li",
+            "list": True,
+            "attrs": [
+                {
+                    "name": "id",
+                    "selector_type": "css",
+                    "selector_val": "div.dt>a",
+                    "val": "href",
+                    "val_process": {
+                        "method": "regex",
+                        "regex": "/weixin-show-id-(\\d+).html",
+                        "index": 0
+                    }
+                },
+                {
+                    "name": "url",
+                    "selector_type": "css",
+                    "selector_val": "div.dt>a",
+                    "val": "href",
+                    "val_prefix": "http://www.gpwxq.com"
+
+                },
+                {
+                    "name": "title",
+                    "selector_type": "css",
+                    "selector_val": "div.db>p.p1>a",
+                    "val": "text"
+                },
+                {
+                    "name": "last_update",
+                    "selector_type": "css",
+                    "selector_val": "div.db>p.p2>span.fLeft>font.fs",
+                    "val": "text"
+                }
+            ]
+        },
+        "detail": {
+            "attrs": [
+                {
+                    "name": "title",
+                    "selector_type": "css",
+                    "selector_val": "div.box1>h4",
+                    "val": "text"
+                },
+                {
+                    "name": "time",
+                    "selector_type": "find",
+                    "selector_val": "strong",
+                    "selector_text": "发布时间：",
+                    "parent": True,
+                    "val": "stripped-1"
+                },
+                {
+                    "name": "industry",
+                    "selector_type": "css",
+                    "selector_val": "span.b_nav>a:nth-child(3)",
+                    "val": "text"
+                },
+                {
+                    "name": "location",
+                    "selector_type": "find",
+                    "selector_val": "strong",
+                    "selector_text": "地区：",
+                    "parent": True,
+                    "val": "text",
+                    "val_process": {
+                        "method": "split",
+                        "split": "：",
+                        "index": 1
+                    }
+                },
+                {
+                    "name": "tag",
+                    "selector_type": "css",
+                    "selector_val": "span.b_nav>a:nth-child(3)",
+                    "val": "text"
+                },
+                {
+                    "name": "brief",
+                    "selector_type": "find",
+                    "selector_val": "strong",
+                    "selector_text": "简介：",
+                    "parent": True,
+                    "val": "stripped-1"
+                },
+                {
+                    "name": "qr_group",
+                    "selector_type": "css",
+                    "selector_val": "div.fLeft.b1 > p:nth-child(1) > img",
+                    "val": "src",
+                    "val_prefix": "http://www.gpwxq.com"
+                },
+                {
+                    "name": "qr_master",
+                    "selector_type": ""
+                },
+                {
+                    "name": "account_master",
+                    "selector_type": "find",
+                    "selector_val": "strong",
+                    "selector_text": "微信号：",
+                    "parent": True,
+                    "val": "stripped-1"
+                }
+            ]
+        },
+        "storage": {
+            "base_dir": "./data/gpwxq",
+            "data_name": "data.csv",
+            "img_dir": "imgs"
+        }
+    },
+    "weixinqn": {
+        "start_url": "http://www.weixinqn.com/weixin-index-id-44.html",
+        "next_page": {
+            "selector_type": "find",
+            "selector_val": "a",
+            "selector_text": "下一页",
+            "val": "href",
+            "val_prefix": "http://www.weixinqn.com"
+        },
+        "items": {
+            "selector_type": "css",
+            "selector_val": "ul.w1000>li",
+            "list": True,
+            "attrs": [
+                {
+                    "name": "id",
+                    "selector_type": "css",
+                    "selector_val": "div.dt>a",
+                    "val": "href",
+                    "val_process": {
+                        "method": "regex",
+                        "regex": "/weixin-show-id-(\\d+).html",
+                        "index": 0
+                    }
+                },
+                {
+                    "name": "url",
+                    "selector_type": "css",
+                    "selector_val": "div.dt>a",
+                    "val": "href",
+                    "val_prefix":"http://www.weixinqn.com"
+                },
+                {
+                    "name": "title",
+                    "selector_type": "css",
+                    "selector_val": "div.db>p.p1>a",
+                    "val": "text"
+                },
+                {
+                    "name": "last_update",
+                    "selector_type": "css",
+                    "selector_val": "div.db>p.p2>span.fLeft>font.fs",
+                    "val": "text"
+                }
+            ]
+        },
+        "detail": {
+            "attrs": [
+                {
+                    "name": "title",
+                    "selector_type": "css",
+                    "selector_val": "div.box1>h1",
+                    "val": "text"
+                },
+                {
+                    "name": "time",
+                    "selector_type": "find",
+                    "selector_val": "strong",
+                    "selector_text": "发布时间：",
+                    "parent": True,
+                    "val": "stripped-1"
+                },
+                {
+                    "name": "industry",
+                    "selector_type": "css",
+                    "selector_val": "span.b_nav>a:nth-child(2)",
+                    "val": "text"
+                },
+                {
+                    "name": "location",
+                    "selector_type": "find",
+                    "selector_val": "strong",
+                    "selector_text": "地区：",
+                    "parent": True,
+                    "val": "text",
+                    "val_process": {
+                        "method": "split",
+                        "split": "：",
+                        "index": 1
+                    }
+                },
+                {
+                    "name": "tag",
+                    "selector_type": "css",
+                    "selector_val": "span.b_nav>a:nth-child(2)",
+                    "val": "text"
+                },
+                {
+                    "name": "brief",
+                    "selector_type": "find",
+                    "selector_val": "strong",
+                    "selector_text": "简介：",
+                    "parent": True,
+                    "val": "stripped-1"
+                },
+                {
+                    "name": "qr_group",
+                    "selector_type": "css",
+                    "selector_val": "div.fLeft.b1 > p:nth-child(1) > img",
+                    "val": "src",
+                    "val_prefix": "http://www.weixinqn.com/"
+                },
+                {
+                    "name": "qr_master",
+                    "selector_type": ""
+                },
+                {
+                    "name": "account_master",
+                    "selector_type": "find",
+                    "selector_val": "strong",
+                    "selector_text": "微信号：",
+                    "parent": True,
+                    "val": "stripped-1"
+                }
+            ]
+        },
+        "storage": {
+            "base_dir": "./data/weixinqn",
+            "data_name": "data.csv",
+            "img_dir": "imgs"
+        }
     }
+
 }
 
 

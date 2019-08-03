@@ -21,7 +21,9 @@ website_zh_en_map = {
     '微魁网': 'wekui',
     '群68': 'qun68',
     '你好微信': 'nihaoweixin',
-    '微信群qun': 'wxqun'
+    '微信群qun': 'wxqun',
+    '股票微信群':'gpwxq',
+    '微信群ye':'weixinqn'
 }
 
 website_zh_list = list(website_zh_en_map.keys())

@@ -213,7 +213,11 @@ def extract(soup, cfg):
             else:
                 doc = soup.find(selector_val, attrs={find_type: selector_text})
 
-        parent = cfg['parent']
+        if not 'parent' in cfg:
+            parent = False
+        else:
+            parent = cfg['parent']
+
         if parent:
             doc = doc.parent
 
