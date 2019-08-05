@@ -1837,7 +1837,7 @@ config_dict = {
                     "selector_type": "css",
                     "selector_val": "div.dt>a",
                     "val": "href",
-                    "val_prefix":"http://www.weixinqn.com"
+                    "val_prefix": "http://www.weixinqn.com"
                 },
                 {
                     "name": "title",
@@ -1928,8 +1928,187 @@ config_dict = {
             "data_name": "data.csv",
             "img_dir": "imgs"
         }
+    },
+    "sm168": {
+        "start_url": "http://sm168.com/list-9-1.html",
+        "next_page": {
+            "selector_type": "find",
+            "selector_val": "a",
+            "selector_text": "下一页",
+            "val": "href",
+            "val_prefix": "http://sm168.com/"
+        },
+        "items": {
+            "selector_type": "css",
+            "selector_val": "div.tools_contentgz > ul > li",
+            "list": True,
+            "attrs": [
+                {
+                    "name": "id",
+                    "selector_type": "css",
+                    "selector_val": "a.items",
+                    "val": "href",
+                    "val_process": {
+                        "method": "regex",
+                        "regex": "http://sm168.com/show-(\\d+-\\d+-\\d+).html",
+                        "index": 0
+                    }
+                },
+                {
+                    "name": "url",
+                    "selector_type": "css",
+                    "selector_val": "a.items",
+                    "val": "href"
+                },
+                {
+                    "name": "title",
+                    "selector_type": "css",
+                    "selector_val": "div.gz_title>h4",
+                    "val": "text"
+                },
+                {
+                    "name": "last_update",
+                    "selector_type": "css",
+                    "selector_val": "span",
+                    "val": "text"
+                }
+            ]
+        },
+        "detail": {
+            "skip": [
+                "http://sm168.com/show-69-140407-1.html"
+            ],
+            "attrs": [
+                {
+                    "name": "title",
+                    "selector_type": "css",
+                    "selector_val": "div.content_r>h1",
+                    "val": "text"
+                },
+                {
+                    "name": "time",
+                    "selector_type": "find",
+                    "selector_val": "b",
+                    "selector_text": "发布时间",
+                    "parent": True,
+                    "val": "text",
+                    "val_process": {
+                        "method": "split",
+                        "split": "：",
+                        "index": 1
+                    },
+                    "backup": {
+                        "selector_type": "find",
+                        "selector_val": "span",
+                        "selector_text": "发布时间",
+                        "parent": True,
+                        "val": "text",
+                        "val_process": {
+                            "method": "split",
+                            "split": "：",
+                            "index": 1
+                        }
+                    }
+                },
+                {
+                    "name": "industry",
+                    "selector_type": "find",
+                    "selector_val": "b",
+                    "selector_text": "所属行业",
+                    "parent": True,
+                    "val": "stripped-2",
+                    "backup": {
+                        "selector_type": "find",
+                        "selector_val": "span",
+                        "selector_text": "所属行业",
+                        "parent": True,
+                        "val": "stripped-2",
+                    }
+                },
+                {
+                    "name": "location",
+                    "selector_type": "find",
+                    "selector_val": "b",
+                    "selector_text": "地区",
+                    "parent": True,
+                    "val": "stripped-2",
+                    "backup": {
+                        "selector_type": "find",
+                        "selector_val": "span",
+                        "selector_text": "地区",
+                        "parent": True,
+                        "val": "stripped-2",
+                    }
+                },
+                {
+                    "name": "tag",
+                    "selector_type": ""
+                },
+                {
+                    "name": "brief",
+                    "selector_type": "find",
+                    "selector_val": "b",
+                    "selector_text": "简介",
+                    "parent": True,
+                    "val": "text",
+                    "val_process": {
+                        "method": "split",
+                        "split": "：",
+                        "index": 1
+                    },
+                    "backup": {
+                        "selector_type": "find",
+                        "selector_val": "span",
+                        "selector_text": "简介",
+                        "parent": True,
+                        "val": "text",
+                        "val_process": {
+                            "method": "split",
+                            "split": "：",
+                            "index": 1
+                        }
+                    }
+                },
+                {
+                    "name": "qr_group",
+                    "selector_type": "css",
+                    "selector_val": "div.content_l>img",
+                    "val": "src",
+                    "val_prefix": "http://sm168.com",
+                    "backup": {
+                        "selector_type": "css",
+                        "selector_val": "div.content_l > p > img",
+                        "val": "src",
+                        "val_prefix": "http://sm168.com"
+                    }
+                },
+                {
+                    "name": "qr_master",
+                    "selector_type": ""
+                },
+                {
+                    "name": "account_master",
+                    "selector_type": "find",
+                    "selector_val": "b",
+                    "selector_text": "群主微信号",
+                    "parent": True,
+                    "val": "stripped-2",
+                    "backup": {
+                        "selector_type": "find",
+                        "selector_val": "span",
+                        "selector_text": "群主微信号",
+                        "parent": True,
+                        "val": "stripped-2",
+                    }
+                }
+            ]
+        },
+        "storage": {
+            "base_dir": "./data/sm168",
+            "data_name": "data.csv",
+            "img_dir": "imgs"
+        }
     }
-
 }
 
 

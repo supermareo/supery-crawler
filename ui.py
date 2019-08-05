@@ -23,7 +23,8 @@ website_zh_en_map = {
     '你好微信': 'nihaoweixin',
     '微信群qun': 'wxqun',
     '股票微信群':'gpwxq',
-    '微信群ye':'weixinqn'
+    '微信群ye':'weixinqn',
+    '扫码网':'sm168'
 }
 
 website_zh_list = list(website_zh_en_map.keys())

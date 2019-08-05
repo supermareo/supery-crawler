@@ -195,6 +195,10 @@ def extract(soup, cfg):
                 doc = soup.select(selector_val)
             else:
                 doc = soup.select_one(selector_val)
+        if doc is None:
+            if 'backup' in cfg:
+                return extract(soup, cfg['backup'])
+
     elif selector_type == 'find':
         if 'find_type' in cfg:
             find_type = cfg['find_type']
@@ -213,7 +217,12 @@ def extract(soup, cfg):
             else:
                 doc = soup.find(selector_val, attrs={find_type: selector_text})
 
-        if not 'parent' in cfg:
+        if doc is None:
+            if 'backup' in cfg:
+                return extract(soup, cfg['backup'])
+            return ''
+
+        if 'parent' not in cfg:
             parent = False
         else:
             parent = cfg['parent']
@@ -222,9 +231,9 @@ def extract(soup, cfg):
             doc = doc.parent
 
     if doc is None:
-        return None
+        return ''
 
-    if not 'val' in cfg:
+    if 'val' not in cfg:
         return doc
 
     result = ''
