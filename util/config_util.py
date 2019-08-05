@@ -2108,6 +2108,116 @@ config_dict = {
             "data_name": "data.csv",
             "img_dir": "imgs"
         }
+    },
+    "9877788": {
+        "start_url": "https://www.9877788.com/qun",
+        "next_page": {
+            "selector_type": "css",
+            "selector_val": "a.page_next",
+            "val": "href",
+            "val_prefix": "https://www.9877788.com"
+        },
+        "items": {
+            "selector_type": "css",
+            "selector_val": "div.content>a",
+            "list": True,
+            "attrs": [
+                {
+                    "name": "id",
+                    "selector_type": "css",
+                    "selector_val": "",
+                    "val": "href",
+                    "val_process": {
+                        "method": "regex",
+                        "regex": "/wx/(\\d+)",
+                        "index": 0
+                    }
+                },
+                {
+                    "name": "url",
+                    "selector_type": "css",
+                    "selector_val": "",
+                    "val": "href",
+                    "val_prefix": "https://www.9877788.com"
+                },
+                {
+                    "name": "title",
+                    "selector_type": "css",
+                    "selector_val": "div.data>p.ellipsis",
+                    "val": "text"
+                },
+                {
+                    "name": "last_update",
+                    "selector_type": "css",
+                    "selector_val": "div.data>div.position>span.fl",
+                    "val": "text"
+                }
+            ]
+        },
+        "detail": {
+            "attrs": [
+                {
+                    "name": "title",
+                    "selector_type": "css",
+                    "selector_val": "div.detail_content>p",
+                    "val": "text"
+                },
+                {
+                    "name": "time",
+                    "selector_type": "css",
+                    "selector_val": "div.cards>span>img",
+                    "val": "src",
+                    "val_process": {
+                        "method": "regex",
+                        "regex": "https://img.9877788.com/Uploads/(\\d{4}-\\d{2}-\\d{2})/.*",
+                        "index": 0
+                    }
+                },
+                {
+                    "name": "industry",
+                    "selector_type": "css",
+                    "selector_val": "div.information > span:nth-child(2)",
+                    "val": "text"
+                },
+                {
+                    "name": "location",
+                    "selector_type": "css",
+                    "selector_val": "div.information > span:nth-child(1)",
+                    "val": "text"
+                },
+                {
+                    "name": "tag",
+                    "selector_type": ""
+                },
+                {
+                    "name": "brief",
+                    "selector_type": "css",
+                    "selector_val": "div.text_detail.first>div.texts",
+                    "val": "text"
+                },
+                {
+                    "name": "qr_group",
+                    "selector_type": "css",
+                    "selector_val": "div.cards>span>img",
+                    "val": "src"
+                },
+                {
+                    "name": "qr_master",
+                    "selector_type": ""
+                },
+                {
+                    "name": "account_master",
+                    "selector_type": "css",
+                    "selector_val": "div.text_detail.special>div.texts",
+                    "val": "text"
+                }
+            ]
+        },
+        "storage": {
+            "base_dir": "./data/9877788",
+            "data_name": "data.csv",
+            "img_dir": "imgs"
+        }
     }
 }
 
