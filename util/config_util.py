@@ -2218,6 +2218,238 @@ config_dict = {
             "data_name": "data.csv",
             "img_dir": "imgs"
         }
+    },
+    "qwdaohang": {
+        "proxy": True,
+        "start_url": "http://qwdaohang.com/wxgroup.html",
+        "next_page": {
+            "selector_type": "find",
+            "selector_val": "a",
+            "selector_text": "»",
+            "val": "href",
+            "val_prefix": "http://qwdaohang.com"
+        },
+        "items": {
+            "selector_type": "css",
+            "selector_val": "ul.w-list>li>div.zc",
+            "list": True,
+            "attrs": [
+                {
+                    "name": "id",
+                    "selector_type": "css",
+                    "selector_val": "a",
+                    "val": "href",
+                    "val_process": {
+                        "method": "regex",
+                        "regex": "qrcode/([a-zA-Z0-9]+).html",
+                        "index": 0
+                    }
+                },
+                {
+                    "name": "url",
+                    "selector_type": "css",
+                    "selector_val": "a",
+                    "val": "href",
+                    "val_prefix": "http://qwdaohang.com/"
+                },
+                {
+                    "name": "title",
+                    "selector_type": "css",
+                    "selector_val": "div.weixiin_ma>div.gr-title>a>h3",
+                    "val": "text"
+                },
+                {
+                    "name": "last_update",
+                    "selector_type": ""
+                }
+            ]
+        },
+        "detail": {
+            "attrs": [
+                {
+                    "name": "title",
+                    "selector_type": "css",
+                    "selector_val": "div.card-mshu>h5",
+                    "val": "text"
+                },
+                {
+                    "name": "time",
+                    "selector_type": "css",
+                    "selector_val": "div.card-mshu>p:nth-child(5)",
+                    "val": "text",
+                    "val_process": {
+                        "method": "split",
+                        "split": "：",
+                        "index": 1
+                    }
+                },
+                {
+                    "name": "industry",
+                    "selector_type": ""
+                },
+                {
+                    "name": "location",
+                    "selector_type": "css",
+                    "selector_val": "div.card-mshu>p:nth-child(2)",
+                    "val": "text",
+                    "val_process": {
+                        "method": "split",
+                        "split": "：",
+                        "index": 1
+                    }
+                },
+                {
+                    "name": "tag",
+                    "selector_type": ""
+                },
+                {
+                    "name": "brief",
+                    "selector_type": "css",
+                    "selector_val": "p.card-jianjie",
+                    "val": "text",
+                    "val_process": {
+                        "method": "split",
+                        "split": "简介：",
+                        "index": 1
+                    }
+                },
+                {
+                    "name": "qr_group",
+                    "selector_type": "css",
+                    "selector_val": "ul.w-list>li:nth-child(1)>div.zc>div.weixiin_ma>a>div>div",
+                    "val": "data-code",
+                    "val_prefix": "qrtext-"
+                },
+                {
+                    "name": "qr_master",
+                    "selector_type": ""
+                },
+                {
+                    "name": "account_master",
+                    "selector_type": "css",
+                    "selector_val": "div.card-mshu>p:nth-child(3)",
+                    "val": "text",
+                    "val_process": {
+                        "method": "split",
+                        "split": "：",
+                        "index": 1
+                    }
+                }
+            ]
+        },
+        "storage": {
+            "base_dir": "./data/qwdaohang",
+            "data_name": "data.csv",
+            "img_dir": "imgs"
+        }
+    },
+    "jinnianduoda": {
+        "proxy": True,
+        "start_url": "http://www.jinnianduoda.com/adgroup/",
+        "next_page": {
+            "selector_type": "css",
+            "selector_val": "a.pageNext",
+            "val": "href",
+            "val_prefix": "http://www.jinnianduoda.com"
+        },
+        "items": {
+            "selector_type": "css",
+            "selector_val": "div.boldBorder",
+            "list": True,
+            "attrs": [
+                {
+                    "name": "id",
+                    "selector_type": "css",
+                    "selector_val": "a",
+                    "val": "href",
+                    "val_process": {
+                        "method": "regex",
+                        "regex": "/group/(\\d+).html",
+                        "index": 0
+                    }
+                },
+                {
+                    "name": "url",
+                    "selector_type": "css",
+                    "selector_val": "a",
+                    "val": "href",
+                    "val_prefix": "http://www.jinnianduoda.com"
+                },
+                {
+                    "name": "title",
+                    "selector_type": "css",
+                    "selector_val": "a",
+                    "val": "title"
+                },
+                {
+                    "name": "last_update",
+                    "selector_type": "css",
+                    "selector_val": "div.f12.c888",
+                    "val": "stripped-[0,1,None]"
+                }
+            ]
+        },
+        "detail": {
+            "attrs": [
+                {
+                    "name": "title",
+                    "selector_type": "css",
+                    "selector_val": "div.code_info>h1",
+                    "val": "text"
+                },
+                {
+                    "name": "time",
+                    "selector_type": "css",
+                    "selector_val": "div.other-info>ul>li:nth-child(3)",
+                    "val": "stripped-1"
+                },
+                {
+                    "name": "industry",
+                    "selector_type": "css",
+                    "selector_val": "div.other-info>ul>li:nth-child(1)>a",
+                    "val": "text"
+                },
+                {
+                    "name": "location",
+                    "selector_type": "css",
+                    "selector_val": "div.other-info>ul>li:nth-child(2)>a",
+                    "val": "text"
+                },
+                {
+                    "name": "tag",
+                    "selector_type": "css",
+                    "selector_val": "div.other-info>ul>li:nth-child(4)",
+                    "val": "stripped-1"
+                },
+                {
+                    "name": "brief",
+                    "selector_type": "css",
+                    "selector_val": "div.code_info>p.f18",
+                    "val": "text"
+                },
+                {
+                    "name": "qr_group",
+                    "selector_type": "css",
+                    "selector_val": "div.code_avater>img",
+                    "val": "src"
+                },
+                {
+                    "name": "qr_master",
+                    "selector_type": ""
+                },
+                {
+                    "name": "account_master",
+                    "selector_type": "css",
+                    "selector_val": "div.green_bg>p:nth-child(1)>span",
+                    "val": "text"
+                }
+            ]
+        },
+        "storage": {
+            "base_dir": "./data/jinnianduoda",
+            "data_name": "data.csv",
+            "img_dir": "imgs"
+        }
     }
 }
 

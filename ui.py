@@ -22,10 +22,12 @@ website_zh_en_map = {
     '群68': 'qun68',
     '你好微信': 'nihaoweixin',
     '微信群qun': 'wxqun',
-    '股票微信群':'gpwxq',
-    '微信群ye':'weixinqn',
-    '扫码网':'sm168',
-    '微信群导航':'9877788'
+    '股票微信群': 'gpwxq',
+    '微信群ye': 'weixinqn',
+    '扫码网': 'sm168',
+    '微信群导航': '9877788',
+    '青蛙导航': 'qwdaohang',
+    '微信群发发布':'jinnianduoda'
 }
 
 website_zh_list = list(website_zh_en_map.keys())

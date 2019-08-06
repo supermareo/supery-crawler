@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 from util import config_util, history_util
 from util import time_util, file_util
 from util.image_util import download_img, next_img_name
+from util.proxy_util import get_html
 
 # 忽略warning日志
 requests.packages.urllib3.disable_warnings()
@@ -20,7 +21,8 @@ url_array = []
 encoding = 'utf-8'
 # 跳过部分网页
 detail_skip = []
-
+# 默认不启用代理
+proxy_flag = False
 callback = None
 
 progress_page = 0
@@ -34,7 +36,7 @@ def call_callback(callback_method, arg):
 
 
 def start(name, callback_method):
-    global config, history, data_path, img_dir, crawler_name, url_array, encoding, detail_skip, callback, progress_page, progress_details, progress_detail_save
+    global config, history, data_path, img_dir, crawler_name, url_array, encoding, detail_skip, callback, progress_page, progress_details, progress_detail_save, proxy_flag
     progress_page = 1
     progress_details = 1
     progress_detail_save = 1
@@ -50,6 +52,7 @@ def start(name, callback_method):
     if history is None:
         history = {}
 
+    proxy_flag = 'proxy' in config and config['proxy']
     storage = config['storage']
     base_dir = storage['base_dir']
     time_str = time_util.today_date_str()
@@ -76,7 +79,9 @@ def start(name, callback_method):
 
 
 def crawler_list_page(url):
-    response = requests.get(url, verify=False)
+    response = get(url, proxy_flag)
+    if response is None:
+        return
     response.encoding = encoding
     html = response.text
     soup = BeautifulSoup(html, 'lxml')
@@ -121,6 +126,7 @@ def craw_list(url):
             detail = craw_detail(id, page_item)
         else:
             detail = history[id]['data']
+
         item_detail_list.append(detail)
         # 更新时间
         history[id]['last_crawler_time'] = time_util.now_time_stamp()
@@ -144,7 +150,9 @@ def craw_detail(id, page_item):
     url = page_item['url']
     print(f'start crawl detail {url}')
     # call_callback(callback, f'start crawl detail {url}')
-    response = requests.get(url, verify=False)
+    response = get(url, proxy_flag)
+    if response is None:
+        return None
     response.encoding = encoding
     html = response.text
     soup = BeautifulSoup(html, 'lxml')
@@ -286,8 +294,8 @@ def restore_data(data):
     print(f'restore {data}')
     # call_callback(callback, f'restore {data}')
     # 下载图片
-    qr_group_name = download_img(data["qr_group"], img_dir + next_img_name(img_dir))
-    qr_master_name = download_img(data["qr_master"], img_dir + next_img_name(img_dir, type='master'))
+    qr_group_name = download_img(data["qr_group"], img_dir + next_img_name(img_dir),proxy_flag)
+    qr_master_name = download_img(data["qr_master"], img_dir + next_img_name(img_dir, type='master'),proxy_flag)
     real_data = {}
     # 把值里面所有','换成中文'，',防止影响csv格式，并去除换行
     for k, v in data.items():
@@ -301,6 +309,12 @@ def restore_data(data):
 
     # 写文件
     file_util.append_line(data_path, line)
+
+
+def get(url, use_proxy):
+    if not use_proxy:
+        return requests.get(url, verify=False)
+    return get_html(url)
 
 # if __name__ == '__main__':
 #     # start(name='qunfenxiang')
